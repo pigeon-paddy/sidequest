@@ -77,7 +77,7 @@ namespace Sidequest
 
 		std::string ServerQuest::class_id()
 		{
-			return std::string();
+			return "quest";
 		}
 		
 		// Used for these two queries:
