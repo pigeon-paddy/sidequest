@@ -1,5 +1,7 @@
 #include "query.h"
 
+#include <optional>
+
 #include "database.h"
 #include "statement_cache.h"
 #include "column_cache.h"
@@ -72,14 +74,23 @@ namespace Sidequest
 			error_code = sqlite3_step(prepared_statement);
 		}
 
-		int Query::read_int_value(std::string column_name)
+		std::optional<long> Query::optional_int_value(std::string column_name)
 		{
 			int column_index = database->column_cache->get_column_index(prepared_statement, column_name);
-			int result = static_cast<int>(sqlite3_column_int64(prepared_statement, column_index));
+			if (sqlite3_column_type(prepared_statement, column_index) == SQLITE_NULL)
+				return std::nullopt;
+			int result = static_cast<long>(sqlite3_column_int64(prepared_statement, column_index));
 			return result;
 		}
 
-		std::string Query::read_text_value(std::string column_name)
+		long Query::int_value(std::string column_name)
+		{
+			int column_index = database->column_cache->get_column_index(prepared_statement, column_name);
+			int result = static_cast<long>(sqlite3_column_int64(prepared_statement, column_index));
+			return result;
+		}
+
+		std::string Query::text_value(std::string column_name)
 		{
 			int column_index = database->column_cache->get_column_index(prepared_statement, column_name);
 			auto c_str = reinterpret_cast<const char*>(sqlite3_column_text(prepared_statement, column_index));

@@ -44,8 +44,8 @@ namespace Sidequest
 			query.next_row();
 			if ( ! query.has_rows() )
 				throw UnableToReadObjectException(email);
-			display_name = query.read_text_value("display_name");
-			password     = query.read_text_value("password");
+			display_name = query.text_value("display_name");
+			password     = query.text_value("password");
 		}
 
 		void ServerUser::update_on_database()

@@ -10,9 +10,8 @@ namespace Sidequest
 	{
 	}
 
-	Quest::Quest(Id id, Status status, std::string title, std::string description, User* owner, User* editor, Quest* parent)
-		: id(id)
-		, status(status)
+	Quest::Quest(Status status, std::string title, std::string description, User* owner, User* editor, Quest* parent)
+		: status(status)
 		, title(title)
 		, description(description)
 		, owner(owner)

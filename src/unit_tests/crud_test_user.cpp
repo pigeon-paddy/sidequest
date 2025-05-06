@@ -3,16 +3,16 @@
 #include "storage/database.h"
 #include "model/server_user.h"
 
-class CRUDTests : public ::testing::Test 
+class CRUDTestsUser : public ::testing::Test 
 {
 protected:
 	Sidequest::Server::Database* database;
 
-	CRUDTests() 
+	CRUDTestsUser()
 	{
 	}
 
-	virtual ~CRUDTests() {
+	virtual ~CRUDTestsUser() {
 	}
 
 	virtual void SetUp() {
@@ -27,11 +27,11 @@ protected:
 
 using namespace Sidequest::Server;
 
-TEST_F(CRUDTests, OPEN_DATABASE)
+TEST_F(CRUDTestsUser, OPEN_DATABASE)
 {
 }
 
-TEST_F(CRUDTests, CRUD_USER_CREATE)
+TEST_F(CRUDTestsUser, CRUD_USER_CREATE)
 {
 	auto user = new ServerUser( database, "crud_user_create@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
@@ -45,7 +45,7 @@ TEST_F(CRUDTests, CRUD_USER_CREATE)
 	delete(user2);
 }
 
-TEST_F(CRUDTests, CRUD_USER_CREATE_DOUBLE)
+TEST_F(CRUDTestsUser, CRUD_USER_CREATE_DOUBLE)
 {
 	auto user = new ServerUser(database, "crud_user_create_double@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
@@ -62,7 +62,7 @@ TEST_F(CRUDTests, CRUD_USER_CREATE_DOUBLE)
 	}
 }
 
-TEST_F(CRUDTests, CRUD_USER_READ)
+TEST_F(CRUDTestsUser, CRUD_USER_READ)
 {
 	auto user = new ServerUser(database, "crud_user_read@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
@@ -75,7 +75,7 @@ TEST_F(CRUDTests, CRUD_USER_READ)
 	EXPECT_EQ(user->display_name, "Temporary User");
 }
 
-TEST_F(CRUDTests, CRUD_USER_UPDATE)
+TEST_F(CRUDTestsUser, CRUD_USER_UPDATE)
 {
 	auto user = new ServerUser(database, "crud_user_update@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
@@ -91,7 +91,7 @@ TEST_F(CRUDTests, CRUD_USER_UPDATE)
 	delete(user2);
 }
 
-TEST_F(CRUDTests, CRUD_USER_DELETE)
+TEST_F(CRUDTestsUser, CRUD_USER_DELETE)
 {
 	auto user = new ServerUser(database, "crud_user_delete@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
@@ -102,13 +102,13 @@ TEST_F(CRUDTests, CRUD_USER_DELETE)
 	user2->delete_on_database();
 	delete(user2);
 
+	auto user3 = new ServerUser(database, id);
 	try {
-		auto user3 = new ServerUser(database, id);
 		user3->read_on_database();
 		FAIL();
 	}
 	catch (const UnableToReadObjectException& expected)
 	{
-		delete(user);
+		delete(user3);
 	}
 }

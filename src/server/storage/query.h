@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <optional>
 #include <sqlite3.h>
 
 #include "prepared_statement.h"
@@ -33,8 +34,9 @@ namespace Sidequest
 
 			void next_row();
 
-			int read_int_value(std::string column_name);
-			std::string read_text_value(std::string column_name);
+			long int_value(std::string column_name);
+			std::optional<long> optional_int_value(std::string column_name);
+			std::string text_value(std::string column_name);
 
 			bool has_rows();
 			bool is_done();
