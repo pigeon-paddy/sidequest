@@ -50,5 +50,5 @@ namespace Sidequest
 			int error_code;
 		};
 
-	};
+	}
 }

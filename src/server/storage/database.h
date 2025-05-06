@@ -76,5 +76,5 @@ namespace Sidequest
 			friend class Query;
 		};
 
-	};
+	}
 }
