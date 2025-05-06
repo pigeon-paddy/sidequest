@@ -3,17 +3,13 @@
 namespace Sidequest 
 {
 
-	User::User()
-	{
-	}
-
-	User::User( std::string email)
-		: email(email)
+	User::User(Id id)
+		: id(id)
 	{
 	}
 
 	User::User(std::string email, std::string display_name, std::string password)
-		: email(email), display_name(display_name), password(password)
+		: id(0), email(email), display_name(display_name), password(password)
 	{
 	}
 

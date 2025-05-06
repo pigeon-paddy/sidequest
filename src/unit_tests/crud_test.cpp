@@ -17,7 +17,7 @@ protected:
 
 	virtual void SetUp() {
 		database = new Sidequest::Server::Database(":memory:");
-		database->execute_sql_statement("create table user(email text primary key, display_name text, password text);");
+		database->execute_sql_statement("CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT unique, display_name TEXT, password TEXT);");
 	}
 
 	virtual void TearDown() {
@@ -35,9 +35,10 @@ TEST_F(CRUDTests, CRUD_USER_CREATE)
 {
 	auto user = new ServerUser( database, "crud_user_create@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
+	auto id = user->id;
 	delete(user);
 
-	auto user2 = new ServerUser(database, "crud_user_create@hs-aalen.de");
+	auto user2 = new ServerUser(database, id);
 	user2->read_on_database();
 
 	EXPECT_EQ(user->display_name, "Temporary User");
@@ -65,9 +66,10 @@ TEST_F(CRUDTests, CRUD_USER_READ)
 {
 	auto user = new ServerUser(database, "crud_user_read@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
+	auto id = user->id;
 	delete(user);
 
-	user = new ServerUser(database, "crud_user_read@hs-aalen.de");
+	user = new ServerUser(database, id);
 	user->read_on_database();
 
 	EXPECT_EQ(user->display_name, "Temporary User");
@@ -77,11 +79,12 @@ TEST_F(CRUDTests, CRUD_USER_UPDATE)
 {
 	auto user = new ServerUser(database, "crud_user_update@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
+	auto id = user->id;
 	user->display_name = "Changed Display Name";
 	user->update_on_database();
 	delete(user);
 
-	auto user2 = new ServerUser(database, "crud_user_update@hs-aalen.de");
+	auto user2 = new ServerUser(database, id);
 	user2->read_on_database();
 
 	EXPECT_EQ(user->display_name, "Changed Display Name");
@@ -92,14 +95,15 @@ TEST_F(CRUDTests, CRUD_USER_DELETE)
 {
 	auto user = new ServerUser(database, "crud_user_delete@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
+	auto id = user->id;
 	delete(user);
 
-	auto user2 = new ServerUser(database, "crud_user_delete@hs-aalen.de");
+	auto user2 = new ServerUser(database, id);
 	user2->delete_on_database();
 	delete(user2);
 
 	try {
-		auto user3 = new ServerUser(database, "crud_user_delete@hs-aalen.de");
+		auto user3 = new ServerUser(database, id);
 		user3->read_on_database();
 		FAIL();
 	}

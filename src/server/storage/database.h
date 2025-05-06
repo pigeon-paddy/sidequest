@@ -73,6 +73,7 @@ namespace Sidequest
 			sqlite3* handle = nullptr;
 
 			friend class StatementCache;
+			friend class Query;
 		};
 
 	};

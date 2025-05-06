@@ -18,6 +18,7 @@ namespace Sidequest
 			{
 				prepared_statement = database->statement_cache->add_statement(statement_sql);
 			}
+			error_code = INITIAL;
 		}
 
 		Query::Query( const Query& other )
@@ -44,25 +45,31 @@ namespace Sidequest
 		{
 			error_code = sqlite3_bind_text(prepared_statement, parameter_index, value.c_str(), -1, SQLITE_TRANSIENT);
 			if (error_code != SQLITE_OK)
-			{
 				throw ParameterBindException("error binding parameter " + std::to_string(parameter_index) + " to " + value, error_code);
-			}
 		}
 
 		void Query::bind(int parameter_index, unsigned int value)
 		{
 			error_code = sqlite3_bind_int(prepared_statement, parameter_index, value);
 			if (error_code != SQLITE_OK)
-			{
-				sqlite3_finalize(prepared_statement);
 				throw ParameterBindException("error binding parameter " + std::to_string(parameter_index) + " to " + std::to_string(value), error_code);
-			}
 		}
 
-		int Query::execute()
+		void Query::bind_null(int parameter_index)
+		{
+			error_code = sqlite3_bind_null(prepared_statement, parameter_index);
+			if (error_code != SQLITE_OK)
+				throw ParameterBindException("error binding parameter " + std::to_string(parameter_index) + " to NULL", error_code);
+		}
+
+		int Query::last_insert_rowid()
+		{
+			return sqlite3_last_insert_rowid( database->handle );
+		}
+
+		void Query::next_row()
 		{
 			error_code = sqlite3_step(prepared_statement);
-			return error_code;
 		}
 
 		int Query::read_int_value(std::string column_name)
@@ -78,6 +85,16 @@ namespace Sidequest
 			auto c_str = reinterpret_cast<const char*>(sqlite3_column_text(prepared_statement, column_index));
 			std::string result(c_str);
 			return result;
+		}
+
+		bool Query::has_rows()
+		{
+			return error_code == SQLITE_ROW;
+		}
+
+		bool Query::is_done()
+		{
+			return error_code == SQLITE_DONE;
 		}
 
 		void Query::reset()

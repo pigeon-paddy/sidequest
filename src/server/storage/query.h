@@ -6,6 +6,8 @@
 
 #include "prepared_statement.h"
 
+#define INITIAL -1
+
 /* Base class of all persistent domain model objects on the server
 *  that implement CRUDS operations */
 namespace Sidequest
@@ -26,11 +28,16 @@ namespace Sidequest
 
 			void bind(int parameter_index, std::string value);
 			void bind(int parameter_index, unsigned int value);
+			void bind_null(int parameter_index);
+			int last_insert_rowid();
 
-			int execute();
+			void next_row();
 
 			int read_int_value(std::string column_name);
 			std::string read_text_value(std::string column_name);
+
+			bool has_rows();
+			bool is_done();
 
 		protected:
 			void reset();
