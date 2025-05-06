@@ -17,7 +17,7 @@ protected:
 
 	virtual void SetUp() {
 		database = new Sidequest::Server::Database(":memory:");
-		database->execute("create table user(email text primary key, display_name text, password text);");
+		database->execute_sql_statement("create table user(email text primary key, display_name text, password text);");
 	}
 
 	virtual void TearDown() {
