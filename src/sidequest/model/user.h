@@ -3,22 +3,17 @@
 #include <string>
 #include <vector>
 
-#include "network/json_serialisable.h"
+#include "id.h"
 
 namespace Sidequest
 {
 	class Quest;
 
-	class User : public JsonSerialisable {
+	class User {
 	public:
-		typedef unsigned long Id;
 		User(Id id);
 		User(std::string email, std::string display_name, std::string password);
-		~User();
-
-		// implementation of JsonSerialisable
-		virtual Json& to_json() override;
-		virtual void  from_json(const Json& json) override;
+		virtual ~User();
 
 		Id id;
 		std::string display_name;

@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <optional>
 
 #include <model/quest.h>
 #include <storage/persistable.h>
@@ -31,9 +30,6 @@ namespace Sidequest
 
 			void bind_all_parameters(Query& query);
 
-			std::optional<Id> owner_id;
-			std::optional<Id> editor_id;
-			std::optional<Id> parent_id;
 		};
 
 	}
