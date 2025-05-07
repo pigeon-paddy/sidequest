@@ -8,13 +8,16 @@ namespace Sidequest
 {
 	namespace Server
 	{
+		typedef httplib::Request Request;
+		typedef httplib::Response Response;
+
 		class CommandHandler
 		{
 		public:
-			virtual void execute(const httplib::Request& request, httplib::Response& response) = 0;
+			virtual void execute(const Request& request, Response& response) = 0;
 			virtual std::string endpoint() = 0;
 
-			std::function<void(const httplib::Request&, httplib::Response&)> get_function();
+			std::function<void(const Request&, Response&)> get_function();
 		};
 
 	}
