@@ -55,12 +55,13 @@ namespace Sidequest
 		if (json.contains("id"))
 			json.at("id").get_to(id);
 
-		json.at("title").get_to(title);
-		json.at("description").get_to(description);
-		json.at("status").get_to(status);
-		parent = deserialize_loadable_pointer<SerialisableQuest>(json["parent"], parent_id);
-		owner  = deserialize_loadable_pointer<SerialisableUser> (json["owner"],  owner_id);
-		editor = deserialize_loadable_pointer<SerialisableUser> (json["editor"], editor_id);
+		title = json.at("title");
+		description = json.at("description");
+		status = json.at("status");
+
+		parent = deserialize_loadable_pointer<SerialisableQuest>(json.at("parent"), parent_id);
+		owner  = deserialize_loadable_pointer<SerialisableUser> (json.at("owner"),  owner_id);
+		editor = deserialize_loadable_pointer<SerialisableUser> (json.at("editor"), editor_id);
 	}
 
 }
