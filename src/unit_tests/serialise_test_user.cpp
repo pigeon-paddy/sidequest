@@ -25,6 +25,7 @@ protected:
 		delete(user);
 
 		std::string json_string = json.dump(4);
+		std::cout << json_string << std::endl;
 
 		auto user2 = new SerialisableUser(0);
 

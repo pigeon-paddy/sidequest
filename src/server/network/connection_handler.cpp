@@ -14,12 +14,6 @@ namespace Sidequest
             : hostname( hostname ), port( port )
         {
             server = new httplib::Server();
-
-            server->Get("/user", [&](const httplib::Request& request, httplib::Response& response) 
-                {
-                    std::cout << "accepting connection" << std::endl;
-                    response.set_content("Hello World!", "text/plain");
-                });
         }
 
         ConnectionHandler::~ConnectionHandler()
@@ -28,10 +22,16 @@ namespace Sidequest
                 delete( it.second );
         }
          
-        void ConnectionHandler::register_command( CommandHandler* command )
+        void ConnectionHandler::register_get_command(CommandHandler* command)
         {
             auto function = command->get_function();
-            server->Get( command->endpoint(), function);
+            server->Get(command->endpoint(), function);
+        }
+
+        void ConnectionHandler::register_put_command(CommandHandler* command)
+        {
+            auto function = command->get_function();
+            server->Put(command->endpoint(), function);
         }
 
         void ConnectionHandler::listen()

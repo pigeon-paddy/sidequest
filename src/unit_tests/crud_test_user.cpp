@@ -56,8 +56,7 @@ TEST_F(CRUDTestsUser, CRUD_USER_CREATE_DOUBLE)
 		user->create_on_database();
 		FAIL();
 	}
-	catch (const UnableToCreateObjectException& expected)
-	{
+	catch (const UnableToCreateObjectException& expected) {
 		delete(user);
 	}
 }
@@ -110,5 +109,18 @@ TEST_F(CRUDTestsUser, CRUD_USER_DELETE)
 	catch (const UnableToReadObjectException& expected)
 	{
 		delete(user3);
+	}
+}
+
+TEST_F(CRUDTestsUser, CRUD_USER_DELETE_NON_EXISTENT)
+{
+	auto user = new ServerUser(database, 15);
+
+	try {
+		user->delete_on_database();
+		FAIL();
+	}
+	catch (const UnableToDeleteObjectException& expected) {
+		delete(user);
 	}
 }

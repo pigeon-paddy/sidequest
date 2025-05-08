@@ -72,6 +72,7 @@ namespace Sidequest
 		void Query::next_row()
 		{
 			error_code = sqlite3_step(prepared_statement);
+			n_changes = sqlite3_changes(database->handle);
 		}
 
 		std::optional<long> Query::optional_int_value(std::string column_name)
@@ -106,6 +107,12 @@ namespace Sidequest
 		bool Query::is_done()
 		{
 			return error_code == SQLITE_DONE;
+		}
+
+		unsigned int Query::changes()
+		{
+			return n_changes;
+
 		}
 
 		void Query::reset()

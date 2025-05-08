@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include <model/user.h>
+#include <network/serialisable_user.h>
 #include <storage/persistable.h>
 
 namespace Sidequest
@@ -11,7 +11,7 @@ namespace Sidequest
 	namespace Server
 	{
 
-		class ServerUser : public Sidequest::User, public Persistable {
+		class ServerUser : public Sidequest::SerialisableUser, public Persistable {
 		public:
 			typedef unsigned long Id;
 

@@ -11,13 +11,13 @@ namespace Sidequest
 	
 		ServerUser::ServerUser(Database* database, Id id)
 			: Persistable(database)
-			, User(id)
+			, SerialisableUser(id)
 		{
 		}
 
 		ServerUser::ServerUser(Database* database, std::string email, std::string display_name, std::string password)
 			: Persistable(database)
-			, User(email, display_name, password)
+			, SerialisableUser(email, display_name, password)
 		{
 		}
 
@@ -66,6 +66,8 @@ namespace Sidequest
 			query.bind( 1, id );
 			query.next_row();
 			if (!query.is_done())
+				throw UnableToDeleteObjectException(email);
+			if (query.changes() != 1)
 				throw UnableToDeleteObjectException(email);
 		}
 

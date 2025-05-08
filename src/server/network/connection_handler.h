@@ -20,7 +20,8 @@ namespace Sidequest
 			ConnectionHandler( std::string hostname, int port );
 			~ConnectionHandler();
 			
-			void register_command( CommandHandler* handler );
+			void register_get_command(CommandHandler* handler);
+			void register_put_command(CommandHandler* handler);
 
 			void listen();
 

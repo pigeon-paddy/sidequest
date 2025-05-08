@@ -38,7 +38,10 @@ namespace Sidequest
 
 	void SerialisableUser::from_json(const Json& json)
 	{
-		json.at("id").get_to(id);
+		// id might not exist of the user data is send as a create-user request,
+		// such the id is not yet assigned
+		if ( json.contains("id"))
+			json.at("id").get_to(id);
 		json.at("display_name").get_to(display_name);
 		json.at("email").get_to(email);
 	}

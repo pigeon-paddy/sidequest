@@ -8,11 +8,16 @@ namespace Sidequest
 {
 	namespace Server
 	{
-		class GetUserCommand: public CommandHandler
+		class Database;
+
+		class UserCreateCommand: public CommandHandler
 		{
 		public:
+			UserCreateCommand(Database* database);
 			virtual void execute(const httplib::Request& request, httplib::Response& response) override;
 			virtual std::string endpoint() override;
+		protected:
+			Database* database;
 		};
 
 	}

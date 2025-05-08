@@ -13,7 +13,7 @@ namespace Sidequest
 	NLOHMANN_JSON_SERIALIZE_ENUM(Quest::Status,
 		{
 			{ Quest::Status::initial, "initial" },
-			{ Quest::Status::done, "done" },
+			{ Quest::Status::done,    "done" },
 			{ Quest::Status::inactive, "inactive" }
 		})
 
