@@ -10,13 +10,13 @@ namespace Sidequest
 	
 		ServerQuest::ServerQuest(Database* database, Id id)
 			: Persistable(database)
-			, Quest(id)
+			, SerialisableQuest(id)
 		{
 		}
 
 		ServerQuest::ServerQuest(Database* database, Status status, std::string title, std::string description, ServerUser* owner, ServerUser* editor, Quest* parent)
 			: Persistable(database)
-			, Quest( status, title, description, owner, editor, parent )
+			, SerialisableQuest( status, title, description, owner, editor, parent )
 		{
 		}
 

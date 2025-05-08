@@ -23,6 +23,7 @@ protected:
 		auto json = original_quest->to_json();
 
 		std::string json_string = json.dump(4);
+		std::cout << json_string << std::endl;
 
 		auto new_quest = new SerialisableQuest(0);
 

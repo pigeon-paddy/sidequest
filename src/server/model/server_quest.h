@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include <model/quest.h>
+#include <network/serialisable_quest.h>
 #include <storage/persistable.h>
 #include <storage/query.h>
 
@@ -13,7 +13,7 @@ namespace Sidequest
 	{
 		class ServerUser;
 
-		class ServerQuest : public Sidequest::Quest, public Persistable {
+		class ServerQuest : public Sidequest::SerialisableQuest, public Persistable {
 		public:
 			typedef unsigned long Id;
 
