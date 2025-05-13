@@ -15,7 +15,6 @@ namespace Sidequest
 		{
 		public:
 			virtual void execute(const Request& request, Response& response) = 0;
-			virtual std::string endpoint() = 0;
 
 			std::function<void(const Request&, Response&)> get_function();
 		};

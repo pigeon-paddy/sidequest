@@ -6,9 +6,12 @@
 
 #include <string>
 #include <iostream>
-#include <json.hpp>
 
+#include <json.hpp>
 using json = nlohmann::json;
+
+#include "network/serialisable_user.h"
+#include "network/serialisable_quest.h"
 
 namespace Sidequest
 {
@@ -74,6 +77,50 @@ namespace Sidequest
         {
             std::string id_string = std::to_string(id);
             auto result = _http_client.Delete("/api/user/" + id_string + "/delete");
+            if (result->status != httplib::StatusCode::OK_200)
+                throw RemoteCallFailedException("read user failed");
+        }
+
+        Id Stubs::createQuest(SerialisableQuest* quest)
+        {
+            std::string body = quest->to_json().dump();
+            auto result = _http_client.Put("/api/quest/create", body, "text/plain");
+            if (result.error() != httplib::Error::Success)
+                throw RemoteCallFailedException(result.error());
+            if (result->status != httplib::StatusCode::OK_200)
+                throw RemoteCallFailedException("create quest failed");
+
+            auto json_response = Json::parse(result.value().body);
+
+            Id id = json_response.at("id");
+            return id;
+        }
+
+        SerialisableQuest* Stubs::readQuest(Id id)
+        {
+            std::string id_string = std::to_string(id);
+            auto result = _http_client.Get("/api/quest/" + id_string + "/read");
+            if (result->status != httplib::StatusCode::OK_200)
+                throw RemoteCallFailedException("read quest failed");
+            auto json = Json::parse(result->body);
+            SerialisableQuest* quest = new SerialisableQuest(id);
+            quest->from_json(json);
+            return quest;
+        }
+
+        void Stubs::updateQuest(SerialisableQuest* quest)
+        {
+            std::string body = quest->to_json().dump();
+            std::string id_string = std::to_string(quest->id);
+            auto result = _http_client.Put("/api/quest/" + id_string + "/update", body, "text/plain");
+            if (result->status != httplib::StatusCode::OK_200)
+                throw RemoteCallFailedException("update quest failed");
+        }
+
+        void Stubs::deleteQuest(Id id)
+        {
+            std::string id_string = std::to_string(id);
+            auto result = _http_client.Delete("/api/quest/" + id_string + "/delete");
             if (result->status != httplib::StatusCode::OK_200)
                 throw RemoteCallFailedException("read user failed");
         }

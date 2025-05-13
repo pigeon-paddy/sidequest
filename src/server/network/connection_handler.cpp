@@ -22,22 +22,22 @@ namespace Sidequest
                 delete( it.second );
         }
          
-        void ConnectionHandler::register_get_command(CommandHandler* command)
+        void ConnectionHandler::register_get_command(std::string endpoint, CommandHandler* command)
         {
             auto function = command->get_function();
-            server->Get(command->endpoint(), function);
+            server->Get(endpoint, function);
         }
 
-        void ConnectionHandler::register_put_command(CommandHandler* command)
+        void ConnectionHandler::register_put_command(std::string endpoint, CommandHandler* command)
         {
             auto function = command->get_function();
-            server->Put(command->endpoint(), function);
+            server->Put(endpoint, function);
         }
 
-        void ConnectionHandler::register_delete_command(CommandHandler* command)
+        void ConnectionHandler::register_delete_command(std::string endpoint, CommandHandler* command)
         {
             auto function = command->get_function();
-            server->Delete(command->endpoint(), function);
+            server->Delete(endpoint, function);
         }
 
         void ConnectionHandler::listen()

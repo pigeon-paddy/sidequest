@@ -10,12 +10,13 @@ namespace Sidequest
 	{
 		class Database;
 
-		class UserCreateCommand: public CommandHandler
+		template<class ModelClass>
+		class DeleteCommand: public CommandHandler
 		{
 		public:
-			UserCreateCommand(Database* database);
+			DeleteCommand(Database* database);
 			virtual void execute(const httplib::Request& request, httplib::Response& response) override;
-			virtual std::string endpoint() override;
+
 		protected:
 			Database* database;
 		};

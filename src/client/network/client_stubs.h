@@ -5,10 +5,12 @@
 #include "httplib.h"
 
 #include "model/id.h"
-#include "network/serialisable_user.h"
 
 namespace Sidequest
 {
+	class SerialisableUser;
+	class SerialisableQuest;
+
 	namespace Client
 	{
 		typedef httplib::Request Request;
@@ -27,10 +29,15 @@ namespace Sidequest
 			Stubs( httplib::Client& http_connection );
 			~Stubs();
 
-			Id createUser( SerialisableUser* user );
+			Id createUser(SerialisableUser* user);
 			SerialisableUser* readUser(Id id);
-			void updateUser( SerialisableUser* user );
+			void updateUser(SerialisableUser* user);
 			void deleteUser(Id id);
+
+			Id createQuest(SerialisableQuest* user);
+			SerialisableQuest* readQuest(Id id);
+			void updateQuest(SerialisableQuest* user);
+			void deleteQuest(Id id);
 
 		protected:
 			httplib::Client& _http_client;

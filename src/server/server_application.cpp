@@ -4,18 +4,16 @@
 #include <chrono>
 #include <thread>
 
-#include <storage/database.h>
-#include <network/connection_handler.h>
+#include "storage/database.h"
+#include "network/connection_handler.h"
 
-#include <controller/user_crud/user_read_command.h>
-#include <controller/user_crud/user_create_command.h>
-#include <controller/user_crud/user_update_command.h>
-#include <controller/user_crud/user_delete_command.h>
+#include "model/server_user.h"
+#include "model/server_quest.h"
 
-#include <controller/quest_crud/quest_read_command.h>
-#include <controller/quest_crud/quest_create_command.h>
-#include <controller/quest_crud/quest_update_command.h>
-#include <controller/quest_crud/quest_delete_command.h>
+#include "controller/crud/read_command.h"
+#include "controller/crud/create_command.h"
+#include "controller/crud/update_command.h"
+#include "controller/crud/delete_command.h"
 
 namespace Sidequest
 {
@@ -57,15 +55,15 @@ namespace Sidequest
 
 		void ServerApplication::setup_commands()
 		{
-			connection_handler->register_get_command(new Sidequest::Server::UserReadCommand(database));
-			connection_handler->register_put_command(new Sidequest::Server::UserCreateCommand(database));
-			connection_handler->register_put_command(new Sidequest::Server::UserUpdateCommand(database));
-			connection_handler->register_delete_command(new Sidequest::Server::UserDeleteCommand(database));
+			connection_handler->register_put_command("/api/user/create", new Sidequest::Server::CreateCommand<ServerUser>(database));
+			connection_handler->register_get_command("/api/user/:id/read", new Sidequest::Server::ReadCommand<ServerUser>(database));
+			connection_handler->register_put_command("/api/user/:id/update", new Sidequest::Server::UpdateCommand<ServerUser>(database));
+			connection_handler->register_delete_command("/api/user/:id/delete", new Sidequest::Server::DeleteCommand<ServerUser>(database));
 
-			connection_handler->register_get_command(new Sidequest::Server::QuestReadCommand(database));
-			connection_handler->register_put_command(new Sidequest::Server::QuestCreateCommand(database));
-			connection_handler->register_put_command(new Sidequest::Server::QuestUpdateCommand(database));
-			connection_handler->register_delete_command(new Sidequest::Server::QuestDeleteCommand(database));
+			connection_handler->register_put_command("/api/quest/create", new Sidequest::Server::CreateCommand<ServerQuest>(database));
+			connection_handler->register_get_command("/api/quest/:id/read", new Sidequest::Server::ReadCommand<ServerQuest>(database));
+			connection_handler->register_put_command("/api/quest/:id/update", new Sidequest::Server::UpdateCommand<ServerQuest>(database));
+			connection_handler->register_delete_command("/api/quest/:id/delete", new Sidequest::Server::DeleteCommand<ServerQuest>(database));
 		}
 
 	}
