@@ -37,9 +37,9 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_CREATE)
 	auto quest2 = new ServerQuest(database, id);
 	quest2->read_on_database();
 
-	EXPECT_EQ(quest->status, ServerQuest::Status::initial);
-	EXPECT_EQ(quest->title, "Example Todo");
-	EXPECT_EQ(quest->owner_id, std::nullopt);
+	EXPECT_EQ(quest2->status, ServerQuest::Status::initial);
+	EXPECT_EQ(quest2->title, "Example Todo");
+	EXPECT_EQ(quest2->owner_id, std::nullopt);
 	delete(quest2);
 }
 
@@ -50,18 +50,20 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_READ)
 	auto id = quest->id;
 	delete(quest);
 
-	quest = new ServerQuest(database, id);
-	quest->read_on_database();
+	auto quest2 = new ServerQuest(database, id);
+	quest2->read_on_database();
 
-	EXPECT_EQ(quest->title, "Example Todo");
-	EXPECT_EQ(quest->description, "");
-	EXPECT_EQ(quest->status, ServerQuest::Status::initial);
-	EXPECT_EQ(quest->owner, nullptr);
-	EXPECT_EQ(quest->owner_id, std::nullopt);
-	EXPECT_EQ(quest->editor, nullptr);
-	EXPECT_EQ(quest->editor_id, std::nullopt);
-	EXPECT_EQ(quest->parent, nullptr);
-	EXPECT_EQ(quest->parent_id, std::nullopt);
+	EXPECT_EQ(quest2->title, "Example Todo");
+	EXPECT_EQ(quest2->description, "");
+	EXPECT_EQ(quest2->status, ServerQuest::Status::initial);
+	EXPECT_EQ(quest2->owner, nullptr);
+	EXPECT_EQ(quest2->owner_id, std::nullopt);
+	EXPECT_EQ(quest2->editor, nullptr);
+	EXPECT_EQ(quest2->editor_id, std::nullopt);
+	EXPECT_EQ(quest2->parent, nullptr);
+	EXPECT_EQ(quest2->parent_id, std::nullopt);
+	
+	delete(quest2);
 }
 
 TEST_F(CRUDTestsQuest, CRUD_QUEST_UPDATE)

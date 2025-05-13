@@ -41,7 +41,7 @@ TEST_F(CRUDTestsUser, CRUD_USER_CREATE)
 	auto user2 = new ServerUser(database, id);
 	user2->read_on_database();
 
-	EXPECT_EQ(user->display_name, "Temporary User");
+	EXPECT_EQ(user2->display_name, "Temporary User");
 	delete(user2);
 }
 
@@ -52,7 +52,7 @@ TEST_F(CRUDTestsUser, CRUD_USER_CREATE_DOUBLE)
 	delete(user);
 
 	try {
-		auto user = new ServerUser(database, "crud_user_create_double@hs-aalen.de", "Temporary User 2", "");
+		user = new ServerUser(database, "crud_user_create_double@hs-aalen.de", "Temporary User 2", "");
 		user->create_on_database();
 		FAIL();
 	}
@@ -86,7 +86,7 @@ TEST_F(CRUDTestsUser, CRUD_USER_UPDATE)
 	auto user2 = new ServerUser(database, id);
 	user2->read_on_database();
 
-	EXPECT_EQ(user->display_name, "Changed Display Name");
+	EXPECT_EQ(user2->display_name, "Changed Display Name");
 	delete(user2);
 }
 
