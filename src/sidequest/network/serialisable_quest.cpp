@@ -38,13 +38,6 @@ namespace Sidequest
 		json["owner"]  = serialize_loadable_pointer(dynamic_cast<JsonSerialisable*>(owner),  owner_id,  serialise_owner_recursive);
 		json["editor"] = serialize_loadable_pointer(dynamic_cast<JsonSerialisable*>(editor), editor_id, serialise_editor_recursive);
 
-		/*json["subquests"] = Json::array();
-		for (auto subquest : subquests)
-		{
-			auto _subquest = dynamic_cast<JsonSerialisable*>(subquest);
-			json["subquests"].push_back( _subquest->to_json(!serialise_subquests_recursive) );
-		}*/
-
 		return json;
 	}
 

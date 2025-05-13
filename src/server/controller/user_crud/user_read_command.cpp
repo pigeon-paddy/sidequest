@@ -19,7 +19,6 @@ namespace Sidequest
 
         void UserReadCommand::execute(const httplib::Request& request, httplib::Response& response)
         {
-            std::cout << "calling UserReadCommand" << std::endl;
             Id user_id = std::stoul( request.path_params.at("id") );
             auto user = new ServerUser(database, user_id);
 

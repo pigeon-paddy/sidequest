@@ -45,6 +45,7 @@ namespace Sidequest
 			if ( ! query.has_rows() )
 				throw UnableToReadObjectException(email);
 			display_name = query.text_value("display_name");
+			email        = query.text_value("email");
 			password     = query.text_value("password");
 		}
 

@@ -19,10 +19,7 @@ namespace Sidequest
 
         void UserCreateCommand::execute(const httplib::Request& request, httplib::Response& response)
         {
-            std::cout << "calling UserCreateCommand" << std::endl;
-            std::cout << request.body << std::endl;
             auto json = Json::parse(request.body);
-            std::cout << json << std::endl;
             auto user = new ServerUser(database, 0);
             user->from_json(json);
 
@@ -33,13 +30,13 @@ namespace Sidequest
             {
                 response.set_content(Json("unable to create user"), "text/plain");
                 response.status = httplib::StatusCode::BadRequest_400;
-                std::cout << "unable to create user" << std::endl;
                 return;
             }
 
-            response.set_content(Json({"id", user->id } ).dump(), "text/plain");
+            Json json_response;
+            json_response["id"] = user->id;
+            response.set_content(json_response.dump(), "text/plain");
             response.status = httplib::StatusCode::OK_200;
-            std::cout << "user created successfully" << std::endl;
         }
 
         std::string UserCreateCommand::endpoint()

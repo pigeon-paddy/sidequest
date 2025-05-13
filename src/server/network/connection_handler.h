@@ -20,10 +20,12 @@ namespace Sidequest
 			ConnectionHandler( std::string hostname, int port );
 			~ConnectionHandler();
 			
-			void register_get_command(CommandHandler* handler);
-			void register_put_command(CommandHandler* handler);
+			void register_get_command(CommandHandler* command);
+			void register_put_command(CommandHandler* command);
+			void register_delete_command(CommandHandler* command);
 
 			void listen();
+			void stop();
 
 		protected:
 			std::unordered_map< std::string, CommandHandler* > endpoints;

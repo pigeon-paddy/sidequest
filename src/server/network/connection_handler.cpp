@@ -34,9 +34,20 @@ namespace Sidequest
             server->Put(command->endpoint(), function);
         }
 
+        void ConnectionHandler::register_delete_command(CommandHandler* command)
+        {
+            auto function = command->get_function();
+            server->Delete(command->endpoint(), function);
+        }
+
         void ConnectionHandler::listen()
         {
             server->listen(hostname, port);
+        }
+
+        void ConnectionHandler::stop()
+        {
+            server->stop();
         }
     } // namespace Server
 } // namespace Sidequest
