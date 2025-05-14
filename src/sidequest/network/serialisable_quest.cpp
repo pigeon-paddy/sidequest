@@ -8,6 +8,11 @@
 namespace Sidequest 
 {
 
+	SerialisableQuest::SerialisableQuest()
+		: Quest()
+	{
+	}
+	
 	SerialisableQuest::SerialisableQuest(Id id)
 		: Quest(id)
 	{

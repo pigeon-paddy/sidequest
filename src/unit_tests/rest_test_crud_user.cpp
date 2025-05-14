@@ -17,17 +17,17 @@ namespace Sidequst {
 	TEST_F(RestTest, USER_CREATE_THEN_DELETE)
 	{
 		auto user = new SerialisableUser("test@hs-aalen.de", "REST Test User", "");
-		auto id = client->stubs()->createUser(user);
+		auto id = client->stubs()->create_user(user);
 
-		client->stubs()->deleteUser(id);
+		client->stubs()->delete_user(id);
 	}
 
 	TEST_F(RestTest, USER_CREATE_THEN_READ)
 	{
 		auto user1 = new SerialisableUser("test@hs-aalen.de", "REST Test User", "");
-		auto id = client->stubs()->createUser(user1);
+		auto id = client->stubs()->create_user(user1);
 
-		auto user2 = client->stubs()->readUser(id);
+		auto user2 = client->stubs()->read_user(id);
 
 		ASSERT_EQ(id, user2->id);
 		ASSERT_EQ(user1->display_name, user2->display_name);
@@ -40,9 +40,9 @@ namespace Sidequst {
 	TEST_F(RestTest, USER_CREATE_THEN_UPDATE_THEN_READ)
 	{
 		auto user1 = new SerialisableUser("test@hs-aalen.de", "REST Test User", "");
-		auto id = client->stubs()->createUser(user1);
+		auto id = client->stubs()->create_user(user1);
 
-		auto user2 = client->stubs()->readUser(id);
+		auto user2 = client->stubs()->read_user(id);
 
 		ASSERT_EQ(id, user2->id);
 		ASSERT_EQ(user1->display_name, user2->display_name);
@@ -50,9 +50,9 @@ namespace Sidequst {
 
 		user2->display_name = "UPDATED Test User";
 
-		client->stubs()->updateUser(user2);
+		client->stubs()->update_user(user2);
 
-		auto user3 = client->stubs()->readUser(id);
+		auto user3 = client->stubs()->read_user(id);
 
 		ASSERT_EQ(id, user3->id);
 		ASSERT_EQ("UPDATED Test User", user3->display_name);

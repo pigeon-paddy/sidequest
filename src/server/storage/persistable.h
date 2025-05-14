@@ -4,6 +4,7 @@
 #include <vector>
 #include <sqlite3.h>
 
+#include "model/id.h"
 #include "prepared_statement.h"
 
 /* Base class of all persistent domain model objects on the server
@@ -22,7 +23,7 @@ namespace Sidequest
 			virtual ~Persistable();
 
 			virtual void create_on_database() = 0;
-			virtual void read_on_database() = 0;
+			virtual void read_on_database(Id id) = 0;
 			virtual void update_on_database() = 0;
 			virtual void delete_on_database() = 0;
 

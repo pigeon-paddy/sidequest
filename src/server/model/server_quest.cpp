@@ -7,7 +7,13 @@ namespace Sidequest
 {
 	namespace Server 
 	{
-	
+
+		ServerQuest::ServerQuest(Database* database)
+			: Persistable(database)
+			, SerialisableQuest()
+		{
+		}
+
 		ServerQuest::ServerQuest(Database* database, Id id)
 			: Persistable(database)
 			, SerialisableQuest(id)
@@ -36,21 +42,14 @@ namespace Sidequest
 			id = query.last_insert_rowid();
 		}
 
-		void ServerQuest::read_on_database()
+		void ServerQuest::read_on_database(Id id)
 		{
 			auto query = Query(database, "SELECT id, title, description, status, owner, editor, parent FROM quest WHERE id=?;");
 			query.bind(1, id);
 			query.next_row();
 			if (!query.has_rows())
 				throw UnableToReadObjectException("quest: " + std::to_string(id) );
-			id          = query.int_value("id");
-			title       = query.text_value("title");
-			description = query.text_value("description");
-			std::string status_string = query.text_value("status");
-			status      = Quest::string_to_status(status_string);
-			owner_id    = query.optional_int_value("owner");
-			editor_id   = query.optional_int_value("editor");
-			parent_id   = query.optional_int_value("parent");
+			read_from_query(query);
 		}
 
 		void ServerQuest::update_on_database()
@@ -88,22 +87,33 @@ namespace Sidequest
 			query.bind(1, title);
 			query.bind(2, description);
 			query.bind(3, status_to_string(status));
-			if (owner != nullptr)
-				query.bind(4, owner->email);
+			if (owner_id.has_value())
+				query.bind(4, owner_id.value());
 			else
 				query.bind_null(4);
 
-			if (editor != nullptr)
-				query.bind(5, editor->email);
+			if (editor_id.has_value())
+				query.bind(5, editor_id.value());
 			else
 				query.bind_null(5);
 
-			if (parent != nullptr)
-				query.bind(6, parent->id);
+			if (parent_id.has_value())
+				query.bind(6, parent_id.value());
 			else
 				query.bind_null(6);
 
 		}
 
+		void ServerQuest::read_from_query(Query& query)
+		{
+			id = query.int_value("id");
+			title = query.text_value("title");
+			description = query.text_value("description");
+			std::string status_string = query.text_value("status");
+			status = Quest::string_to_status(status_string);
+			owner_id = query.optional_int_value("owner");
+			editor_id = query.optional_int_value("editor");
+			parent_id = query.optional_int_value("parent");
+		}
 	}
 }

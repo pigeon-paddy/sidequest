@@ -34,8 +34,8 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_CREATE)
 	auto id = quest->id;
 	delete(quest);
 
-	auto quest2 = new ServerQuest(database, id);
-	quest2->read_on_database();
+	auto quest2 = new ServerQuest(database);
+	quest2->read_on_database(id);
 
 	EXPECT_EQ(quest2->status, ServerQuest::Status::initial);
 	EXPECT_EQ(quest2->title, "Example Todo");
@@ -50,8 +50,8 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_READ)
 	auto id = quest->id;
 	delete(quest);
 
-	auto quest2 = new ServerQuest(database, id);
-	quest2->read_on_database();
+	auto quest2 = new ServerQuest(database);
+	quest2->read_on_database(id);
 
 	EXPECT_EQ(quest2->title, "Example Todo");
 	EXPECT_EQ(quest2->description, "");
@@ -76,8 +76,8 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_UPDATE)
 	quest->update_on_database();
 	delete(quest);
 
-	auto quest2 = new ServerQuest(database, id);
-	quest2->read_on_database();
+	auto quest2 = new ServerQuest(database);
+	quest2->read_on_database(id);
 
 	EXPECT_EQ(quest2->title, "Changed Quest Title");
 	EXPECT_EQ(quest2->status, ServerQuest::Status::done);
@@ -95,9 +95,9 @@ TEST_F(CRUDTestsQuest, CRUD_QUEST_DELETE)
 	quest2->delete_on_database();
 	delete(quest2);
 
-	auto quest3 = new ServerQuest(database, id);
+	auto quest3 = new ServerQuest(database);
 	try {
-		quest3->read_on_database();
+		quest3->read_on_database(id);
 		FAIL();
 	}
 	catch (const UnableToReadObjectException& expected)

@@ -5,8 +5,12 @@
 namespace Sidequest 
 {
 
+	User::User()
+	{
+	}
+
 	User::User(Id id)
-		: id(id)
+		:id(id)
 	{
 	}
 

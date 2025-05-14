@@ -12,6 +12,7 @@ namespace Sidequest
 
 	class SerialisableUser : public User, public JsonSerialisable {
 	public:
+		SerialisableUser();
 		SerialisableUser(Id id);
 		SerialisableUser(std::string email, std::string display_name, std::string password);
 		virtual ~SerialisableUser();

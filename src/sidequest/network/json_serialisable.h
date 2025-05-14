@@ -36,7 +36,7 @@ namespace Sidequest
 			}
 			if ( json.is_object() )
 			{
-				T* object = new T( 0 );
+				T* object = new T( );
 				object->from_json( json );
 				id = object->id;
 				return object;

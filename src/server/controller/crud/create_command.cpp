@@ -25,7 +25,7 @@ namespace Sidequest
         void CreateCommand<ModelClass>::execute(const httplib::Request& request, httplib::Response& response)
         {
             auto json = Json::parse(request.body);
-            auto model_object = new ModelClass(database, 0);
+            auto model_object = new ModelClass(database);
             model_object->from_json(json);
 
             try {

@@ -19,6 +19,7 @@ namespace Sidequest
 
 	class SerialisableQuest : public Quest, public JsonSerialisable  {
 	public:
+		SerialisableQuest();
 		SerialisableQuest( Id id );
 		SerialisableQuest( Status status, std::string title, std::string description, User* owner, User* editor, Quest* parent );
 		virtual ~SerialisableQuest();

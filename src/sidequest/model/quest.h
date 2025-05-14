@@ -18,7 +18,8 @@ namespace Sidequest
 			inactive
 		};
 
-		Quest( Id id );
+		Quest();
+		Quest(Id id);
 		Quest( Status status, std::string title, std::string description, User* owner, User* editor, Quest* parent );
 		virtual ~Quest();
 

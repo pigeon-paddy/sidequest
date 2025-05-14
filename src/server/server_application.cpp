@@ -15,6 +15,8 @@
 #include "controller/crud/update_command.h"
 #include "controller/crud/delete_command.h"
 
+#include "view/list_quest_per_parent_command.h"
+
 namespace Sidequest
 {
 	namespace Server
@@ -64,6 +66,8 @@ namespace Sidequest
 			connection_handler->register_get_command("/api/quest/:id/read", new Sidequest::Server::ReadCommand<ServerQuest>(database));
 			connection_handler->register_put_command("/api/quest/:id/update", new Sidequest::Server::UpdateCommand<ServerQuest>(database));
 			connection_handler->register_delete_command("/api/quest/:id/delete", new Sidequest::Server::DeleteCommand<ServerQuest>(database));
+
+			connection_handler->register_get_command("/api/quest/byparent/:id/", new Sidequest::Server::ListQuestPerParentCommand(database));
 		}
 
 	}

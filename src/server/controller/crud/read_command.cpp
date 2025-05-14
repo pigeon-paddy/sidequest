@@ -22,10 +22,10 @@ namespace Sidequest
         void ReadCommand<ModelClass>::execute(const httplib::Request& request, httplib::Response& response)
         {
             Id object_id = std::stoul( request.path_params.at("id") );
-            auto domain_object = new ModelClass(database, object_id);
+            auto domain_object = new ModelClass(database);
 
             try {
-                domain_object->read_on_database();
+                domain_object->read_on_database(object_id);
             }
             catch (UnableToReadObjectException& e) 
             {

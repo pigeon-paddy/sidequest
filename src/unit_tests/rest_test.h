@@ -2,12 +2,11 @@
 
 #include <iostream>
 
-#include "network/serialisable_user.h"
-
-using namespace Sidequest;
-
 namespace Sidequest 
 {
+	class SerialisableUser;
+	class SerialisableQuest;
+
 	namespace Server {
 		class Database;
 		class ServerApplication;
@@ -27,6 +26,8 @@ namespace Sidequest
 		virtual void SetUp();
 
 		virtual void TearDown();
+
+		SerialisableQuest* create_subquest(SerialisableQuest* parent_quest);
 
 		Server::Database* database;
 		Server::ServerApplication* server;

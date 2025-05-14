@@ -2,8 +2,14 @@
 
 #include <stdexcept>
 
+#include "user.h"
+
 namespace Sidequest 
 {
+
+	Quest::Quest()
+	{
+	}
 
 	Quest::Quest(Id id)
 		: id(id)
@@ -18,6 +24,12 @@ namespace Sidequest
 		, editor(editor)
 		, parent(parent)
 	{
+		if (owner != nullptr)
+			owner_id = owner->id;
+		if (editor != nullptr)
+			editor_id = editor->id;
+		if (parent != nullptr)
+			parent_id = parent->id;
 	}
 
 	Quest::~Quest()

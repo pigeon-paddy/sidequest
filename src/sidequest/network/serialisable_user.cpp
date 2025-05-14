@@ -8,6 +8,10 @@ using namespace nlohmann;
 namespace Sidequest 
 {
 
+	SerialisableUser::SerialisableUser()
+	{
+	}
+
 	SerialisableUser::SerialisableUser(Id id)
 		: User(id)
 	{

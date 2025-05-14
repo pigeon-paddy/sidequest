@@ -135,3 +135,6 @@ if(MSVC)
 		"$<TARGET_FILE_DIR:server>"
 	)
 endif(MSVC)
+
+
+set_target_properties(unit_tests PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/application_root" )

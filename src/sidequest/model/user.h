@@ -11,6 +11,7 @@ namespace Sidequest
 
 	class User {
 	public:
+		User();
 		User(Id id);
 		User(std::string email, std::string display_name, std::string password);
 		virtual ~User();

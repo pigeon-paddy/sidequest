@@ -38,8 +38,8 @@ TEST_F(CRUDTestsUser, CRUD_USER_CREATE)
 	auto id = user->id;
 	delete(user);
 
-	auto user2 = new ServerUser(database, id);
-	user2->read_on_database();
+	auto user2 = new ServerUser(database);
+	user2->read_on_database(id);
 
 	EXPECT_EQ(user2->display_name, "Temporary User");
 	delete(user2);
@@ -68,8 +68,8 @@ TEST_F(CRUDTestsUser, CRUD_USER_READ)
 	auto id = user->id;
 	delete(user);
 
-	user = new ServerUser(database, id);
-	user->read_on_database();
+	user = new ServerUser(database);
+	user->read_on_database(id);
 
 	EXPECT_EQ(user->display_name, "Temporary User");
 }
@@ -83,8 +83,8 @@ TEST_F(CRUDTestsUser, CRUD_USER_UPDATE)
 	user->update_on_database();
 	delete(user);
 
-	auto user2 = new ServerUser(database, id);
-	user2->read_on_database();
+	auto user2 = new ServerUser(database);
+	user2->read_on_database(id);
 
 	EXPECT_EQ(user2->display_name, "Changed Display Name");
 	delete(user2);
@@ -101,9 +101,9 @@ TEST_F(CRUDTestsUser, CRUD_USER_DELETE)
 	user2->delete_on_database();
 	delete(user2);
 
-	auto user3 = new ServerUser(database, id);
+	auto user3 = new ServerUser(database);
 	try {
-		user3->read_on_database();
+		user3->read_on_database(id);
 		FAIL();
 	}
 	catch (const UnableToReadObjectException& expected)

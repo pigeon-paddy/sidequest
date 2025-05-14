@@ -29,15 +29,17 @@ namespace Sidequest
 			Stubs( httplib::Client& http_connection );
 			~Stubs();
 
-			Id createUser(SerialisableUser* user);
-			SerialisableUser* readUser(Id id);
-			void updateUser(SerialisableUser* user);
-			void deleteUser(Id id);
+			Id create_user(SerialisableUser* user);
+			SerialisableUser* read_user(Id id);
+			void update_user(SerialisableUser* user);
+			void delete_user(Id id);
 
-			Id createQuest(SerialisableQuest* user);
-			SerialisableQuest* readQuest(Id id);
-			void updateQuest(SerialisableQuest* user);
-			void deleteQuest(Id id);
+			Id create_quest(SerialisableQuest* quest);
+			SerialisableQuest* read_quest(Id id);
+			void update_quest(SerialisableQuest* quest);
+			void delete_quest(Id id);
+
+			std::list< SerialisableQuest* > quest_by_parent( Id id );
 
 		protected:
 			httplib::Client& _http_client;

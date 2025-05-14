@@ -22,7 +22,8 @@ namespace Sidequest
         void DeleteCommand< ModelClass>::execute(const httplib::Request& request, httplib::Response& response)
         {
             Id object_id = std::stoul(request.path_params.at("id"));
-            auto model_object = new ModelClass(database, object_id);
+            auto model_object = new ModelClass(database);
+            model_object->id = object_id;
 
             try {
                 model_object->delete_on_database();
