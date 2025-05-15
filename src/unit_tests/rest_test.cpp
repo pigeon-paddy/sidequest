@@ -46,11 +46,12 @@ namespace Sidequest {
 		delete(client);
 	}
 
-	SerialisableQuest* RestTest::create_subquest(SerialisableQuest* parent_quest)
+	SerialisableQuest* RestTest::create_subquest(SerialisableQuest* parent_quest, SerialisableUser* owner)
 	{
-		auto sub_quest = new SerialisableQuest(Quest::initial, "Sub Quest", "", nullptr, nullptr, parent_quest);
+		auto sub_quest = new SerialisableQuest(Quest::initial, "Sub Quest", "", owner, nullptr, parent_quest);
 		auto sub_quest_id = client->stubs()->create_quest(sub_quest);
-		parent_quest->subquests.push_back(sub_quest);
+		if ( parent_quest != nullptr )
+			parent_quest->subquests.push_back(sub_quest);
 		return sub_quest;
 	}
 

@@ -49,6 +49,7 @@ namespace Sidequest
             auto json_response = Json::parse(result.value().body); 
 
             Id id = json_response.at("id");
+            user->id = id;
             return id;
         }
 
@@ -126,7 +127,7 @@ namespace Sidequest
                 throw RemoteCallFailedException("read user failed");
         }
 
-        std::list<SerialisableQuest*> Stubs::quest_by_parent(Id id)
+        std::list<SerialisableQuest*> Stubs::quests_by_parent(Id id)
         {
             auto result = std::list<SerialisableQuest*>();
             std::string id_string = std::to_string(id);
@@ -142,6 +143,24 @@ namespace Sidequest
             }
             return result;
         }
-        
+      
+        std::list<SerialisableQuest*> Stubs::quests_by_owner(Id id)
+        {
+            auto result = std::list<SerialisableQuest*>();
+            std::string id_string = std::to_string(id);
+            auto response = _http_client.Get("/api/quest/byowner/" + id_string + "/");
+            if (response->status != httplib::StatusCode::OK_200)
+                throw RemoteCallFailedException("get quest by parent failed");
+            auto json_quest_list = Json::parse(response->body);
+            for (auto& json_quest : json_quest_list)
+            {
+                SerialisableQuest* quest = new SerialisableQuest();
+                quest->from_json(json_quest);
+                result.push_back(quest);
+            }
+            return result;
+        }
+
+
     } // namespace Server
 } // namespace Sidequest

@@ -7,6 +7,7 @@
 #include "client_application.h"
 #include "network/client_stubs.h"
 #include "network/serialisable_quest.h"
+#include "network/serialisable_user.h"
 
 using namespace Sidequest;
 
@@ -22,7 +23,7 @@ namespace Sidequst {
 		auto sub_quest = new SerialisableQuest(Quest::initial, "Sub Quest", "", nullptr, nullptr, parent_quest);
 		auto sub_quest_id = client->stubs()->create_quest(sub_quest);
 
-		auto list = client->stubs()->quest_by_parent(parent_quest_id);
+		auto list = client->stubs()->quests_by_parent(parent_quest_id);
 
 		client->stubs()->delete_quest(parent_quest_id);
 		client->stubs()->delete_quest(sub_quest_id);
@@ -34,11 +35,30 @@ namespace Sidequst {
 		auto parent_quest_id = client->stubs()->create_quest(parent_quest);
 
 		for (int i = 0; i < 5; i++)
-			auto sub_quest = create_subquest(parent_quest);
+			auto sub_quest = create_subquest(parent_quest, nullptr);
 
-		auto list = client->stubs()->quest_by_parent(parent_quest_id);
+		auto result_quests = client->stubs()->quests_by_parent(parent_quest_id);
+		
+		ASSERT_EQ(result_quests.size(), 5);
 
-		client->stubs()->delete_quest(parent_quest_id);
+		for (auto quest : result_quests)
+			delete(quest);
+	}
+
+	TEST_F(RestTest, QUEST_FETCH_BY_OWNER_5)
+	{
+		auto owner = new SerialisableUser("QUEST_FETCH_BY_OWNER_5@hs-aalen.de", "Test User", "");
+		auto owner_id = client->stubs()->create_user( owner );
+
+		for (int i = 0; i < 5; i++)
+			auto sub_quest = create_subquest(nullptr, owner);
+
+		auto result_quests = client->stubs()->quests_by_owner(owner_id);
+
+		ASSERT_EQ(result_quests.size(), 5);
+
+		for (auto quest : result_quests)
+			delete(quest);
 	}
 
 

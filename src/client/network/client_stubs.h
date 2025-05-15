@@ -39,7 +39,8 @@ namespace Sidequest
 			void update_quest(SerialisableQuest* quest);
 			void delete_quest(Id id);
 
-			std::list< SerialisableQuest* > quest_by_parent( Id id );
+			std::list< SerialisableQuest* > quests_by_parent(Id id);
+			std::list< SerialisableQuest* > quests_by_owner(Id id);
 
 		protected:
 			httplib::Client& _http_client;

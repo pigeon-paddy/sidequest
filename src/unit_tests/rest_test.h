@@ -27,7 +27,7 @@ namespace Sidequest
 
 		virtual void TearDown();
 
-		SerialisableQuest* create_subquest(SerialisableQuest* parent_quest);
+		SerialisableQuest* create_subquest(SerialisableQuest* parent_quest, SerialisableUser* owner);
 
 		Server::Database* database;
 		Server::ServerApplication* server;
