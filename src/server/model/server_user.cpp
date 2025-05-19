@@ -27,6 +27,27 @@ namespace Sidequest
 		{
 		}
 
+		void ServerUser::create_user_table()
+		{
+			auto prepared_statement = database->prepare("create table user(email text primary key, display_name text, password text);");
+			if (database->execute(prepared_statement) != SQLITE_DONE)
+				throw UnableToCreateObjectException("User table");
+			database->reset_statement(prepared_statement);
+		}
+
+		void ServerUser::clear_user_table()
+		{
+			auto database = new Database("sidequest.db");
+			database->execute("DROP TABLE user;");
+			delete database;
+		}
+
+		void ServerUser::reset_user_table()
+		{
+			clear_user_table();
+			create_user_table();
+		}
+
 		void ServerUser::create_on_database()
 		{
 			auto prepared_statement = database->prepare( "INSERT INTO user(email, display_name, password) VALUES (?, ?, ?);" );
@@ -73,6 +94,8 @@ namespace Sidequest
 		{
 			return "user";
 		}
+
+
 
 	}
 }

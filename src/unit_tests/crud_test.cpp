@@ -21,6 +21,7 @@ protected:
 	}
 
 	virtual void TearDown() {
+		database->execute("DROP TABLE user;");
 		delete database;
 	}
 };
@@ -29,11 +30,20 @@ using namespace Sidequest::Server;
 
 TEST_F(CRUDTests, OPEN_DATABASE)
 {
+	auto database = new Database("sidequest.db");
+	delete database;
+}
+
+TEST_F(CRUDTests, CRUD_RESET_TABLE)
+{
+	auto user = new ServerUser(database);
+	user->reset_user_table();
+	delete(user);
 }
 
 TEST_F(CRUDTests, CRUD_USER_CREATE)
 {
-	auto user = new ServerUser( database, "crud_user_create@hs-aalen.de", "Temporary User", "");
+	auto user = new ServerUser(database, "crud_user_create@hs-aalen.de", "Temporary User", "");
 	user->create_on_database();
 	delete(user);
 

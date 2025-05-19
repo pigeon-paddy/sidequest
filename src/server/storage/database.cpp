@@ -3,10 +3,10 @@
 #include "statement_cache.h"
 #include "column_cache.h"
 
-namespace Sidequest 
+namespace Sidequest
 {
 
-	namespace Server 
+	namespace Server
 	{
 
 		DatabaseNotFoundException::DatabaseNotFoundException(const std::string& message)
@@ -39,31 +39,31 @@ namespace Sidequest
 		{
 		}
 
-		Database::Database( std::string filepath_of_database)
+		Database::Database(std::string filepath_of_database)
 		{
-			open( filepath_of_database );
-			statement_cache = new StatementCache( this );
-			column_cache = new ColumnCache( this );
+			open(filepath_of_database);
+			statement_cache = new StatementCache(this);
+			column_cache = new ColumnCache(this);
 		}
 
 		Database::~Database()
 		{
 			delete(statement_cache);
 			delete(column_cache);
-			if ( is_open )
+			if (is_open)
 				close();
 		}
 
 		PreparedStatement* Database::prepare(std::string statement_sql)
 		{
-			PreparedStatement* prepared_statement = statement_cache->get_statement( statement_sql );
+			PreparedStatement* prepared_statement = statement_cache->get_statement(statement_sql);
 			if (prepared_statement == nullptr)
 			{
 				prepared_statement = statement_cache->add_statement(statement_sql);
 			}
 			return prepared_statement;
 		}
-		
+
 		void Database::bind(PreparedStatement* prepared_statement, int parameter_index, std::string value)
 		{
 			int error_code = sqlite3_bind_text(prepared_statement, parameter_index, value.c_str(), -1, SQLITE_TRANSIENT);
@@ -75,7 +75,7 @@ namespace Sidequest
 
 		void Database::bind(PreparedStatement* prepared_statement, int parameter_index, unsigned int value)
 		{
-			int error_code = sqlite3_bind_int(prepared_statement, parameter_index, value );
+			int error_code = sqlite3_bind_int(prepared_statement, parameter_index, value);
 			if (error_code != SQLITE_OK)
 			{
 				sqlite3_finalize(prepared_statement);
@@ -102,36 +102,37 @@ namespace Sidequest
 
 		int Database::read_int_value(PreparedStatement* statement, std::string column_name)
 		{
-			int column_index = column_cache->get_column_index( statement, column_name);
-			int result = static_cast<int>( sqlite3_column_int64( statement, column_index) );
+			int column_index = column_cache->get_column_index(statement, column_name);
+			int result = static_cast<int>(sqlite3_column_int64(statement, column_index));
 			return result;
 		}
 
 		std::string Database::read_text_value(PreparedStatement* statement, std::string column_name)
 		{
 			int column_index = column_cache->get_column_index(statement, column_name);
-			auto c_str = reinterpret_cast<const char*>( sqlite3_column_text(statement, column_index) );
-			std::string result( c_str );
+			auto c_str = reinterpret_cast<const char*>(sqlite3_column_text(statement, column_index));
+			std::string result(c_str);
 			return result;
 		}
 
 		void Database::open(std::string url)
 		{
-			int return_code = sqlite3_open( url.c_str(), &handle );
-			if ( return_code != SQLITE_OK )
+			int return_code = sqlite3_open(url.c_str(), &handle);
+			if (return_code != SQLITE_OK)
 			{
-				sqlite3_close( handle );
-				throw DatabaseNotFoundException( std::string("database not found: ") + url );
+				sqlite3_close(handle);
+				throw DatabaseNotFoundException(std::string("database not found: ") + url);
 			}
 			is_open = true;
 		}
 
 		void Database::close()
 		{
-			sqlite3_close( handle );
+			sqlite3_close(handle);
 			is_open = false;
 		}
 
 	}
-
 }
+
+	

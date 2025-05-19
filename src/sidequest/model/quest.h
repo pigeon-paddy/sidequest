@@ -5,12 +5,15 @@
 
 namespace Sidequest
 {
+	enum class Status {
+		FINALIZED
+	};
 
 	class Quest {
 	public:
 		typedef unsigned long Id;
 
-		Quest();
+		Quest(std::string caption);
 		~Quest();
 
 		Id id;

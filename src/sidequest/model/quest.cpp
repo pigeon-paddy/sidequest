@@ -3,8 +3,9 @@
 namespace Sidequest 
 {
 
-	Quest::Quest()
+	Quest::Quest(std::string caption)
 	{
+
 	}
 	
 	Quest::~Quest()
