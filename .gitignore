@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Ignorierte Ordner
+\.vs
+\out
