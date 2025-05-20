@@ -34,3 +34,4 @@
 # Ignorierte Ordner
 \.vs
 \out
+\build
