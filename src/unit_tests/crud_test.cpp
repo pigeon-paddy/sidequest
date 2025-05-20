@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-
 #include "storage/database.h"
 #include "model/server_user.h"
 
@@ -16,8 +15,9 @@ protected:
 	}
 
 	virtual void SetUp() {
-		database = new Sidequest::Server::Database(":memory:");
-		auto user = new ServerUser(database);
+		database = new Sidequest::Server::Database("sidequest.db");
+		//database->execute("create table user(email text primary key, display_name text, password text);");
+		auto user = new Sidequest::Server::ServerUser(database);
 		user->create_user_table();
 		delete(user);
 	}
@@ -32,8 +32,6 @@ using namespace Sidequest::Server;
 
 TEST_F(CRUDTests, OPEN_DATABASE)
 {
-	auto database = new Database("sidequest.db");
-	delete database;
 }
 
 TEST_F(CRUDTests, CRUD_RESET_TABLE)
