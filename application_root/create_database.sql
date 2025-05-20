@@ -1,2 +1,2 @@
-create table user(email text primary key, display_name text, password text);
-insert into user(email, display_name) VALUES ('sidequest_root@hs-aalen.de', 'Sidequest Root User', '');
+create table "user" (email TEXT PRIMARY KEY, display_name TEXT, password TEXT);
+insert into "user" (email, display_name) VALUES ('sidequest_root@hs-aalen.de', 'Sidequest Root User', '');

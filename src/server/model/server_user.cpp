@@ -27,11 +27,21 @@ namespace Sidequest
 		{
 		}
 
-		void ServerUser::create_user_table()
-		{
-			auto prepared_statement = database->prepare("create table user(email text primary key, display_name text, password text);");
-			if (database->execute(prepared_statement) != SQLITE_DONE)
-				throw UnableToCreateObjectException("User table");
+		void ServerUser::create_user_table() {
+			auto prepared_statement = database->prepare(
+				"CREATE TABLE user (email TEXT PRIMARY KEY, display_name TEXT, password TEXT);"
+			);
+
+			if (!prepared_statement) {
+				throw std::runtime_error("Failed to prepare statement for creating user table");
+			}
+
+			int result = database->execute(prepared_statement);
+			if (result != SQLITE_DONE) {
+				database->reset_statement(prepared_statement);
+				throw UnableToCreateObjectException("Failed to execute user table creation");
+			}
+
 			database->reset_statement(prepared_statement);
 		}
 
