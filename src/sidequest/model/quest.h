@@ -6,6 +6,8 @@
 namespace Sidequest
 {
 	enum class Status {
+		OPEN,
+		CLOSED,
 		FINALIZED
 	};
 
@@ -16,8 +18,9 @@ namespace Sidequest
 		Quest(std::string caption);
 		~Quest();
 
-		Id id;
+		Id id = 0;
 		std::string caption;
+		Status status;
 		Quest* parent;
 		std::vector<Quest*> subquests;
 	};
