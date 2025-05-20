@@ -1,6 +1,7 @@
-#include <gtest/gtest.h>
-#include "storage/database.h"
+#include "C:\Users\lehle\Source\Repos\sidequest\src\sidequest\model\quest.h"
 #include "model/server_user.h"
+#include "storage/database.h"
+#include <gtest/gtest.h>
 
 class CRUDTests : public ::testing::Test 
 {
@@ -117,4 +118,73 @@ TEST_F(CRUDTests, CRUD_USER_DELETE)
 	{
 		delete(user);
 	}
+}
+
+TEST_F(CRUDTests, QUEST_CREATE)
+{
+	auto quest = new Sidequest::Quest("My First Quest", nullptr);
+
+	EXPECT_EQ(quest->getCaption(), "My First Quest");
+	EXPECT_EQ(quest->getStatus(), Sidequest::Status::OPEN);
+	EXPECT_EQ(quest->findSubquest(9999), nullptr); 
+
+	delete quest;
+}
+
+TEST_F(CRUDTests, QUEST_ADD_SUBQUEST)
+{
+	auto* parent = new Sidequest::Quest("Parent", nullptr);
+	auto* sub = new Sidequest::Quest("Child", parent);
+
+	parent->addSubquest(sub);
+
+	auto found = parent->findSubquest(sub->getId());
+	ASSERT_NE(found, nullptr);
+	EXPECT_EQ(found->getCaption(), "Child");
+	EXPECT_EQ(found->getStatus(), Sidequest::Status::OPEN);
+
+	delete parent;  // löscht rekursiv auch sub
+}
+
+TEST_F(CRUDTests, QUEST_REMOVE_SUBQUEST)
+{
+	auto* parent = new Sidequest::Quest("Parent", nullptr);
+	auto* sub = new Sidequest::Quest("Child", parent);
+
+	parent->addSubquest(sub);
+	EXPECT_NE(parent->findSubquest(sub->getId()), nullptr);
+
+	parent->removeSubquest(sub->getId());
+	EXPECT_EQ(parent->findSubquest(sub->getId()), nullptr);
+
+	delete parent;  // sub wurde bereits gelöscht
+}
+
+TEST_F(CRUDTests, QUEST_UPDATE_STATUS)
+{
+	auto* quest = new Sidequest::Quest("Status Test", nullptr);
+	quest->updateStatus(Sidequest::Status::FINALIZED);
+
+	EXPECT_EQ(quest->getStatus(), Sidequest::Status::FINALIZED);
+
+	delete quest;
+}
+
+TEST_F(CRUDTests, QUEST_MULTIPLE_SUBQUESTS)
+{
+	auto* main = new Sidequest::Quest("Main", nullptr);
+	auto* sub1 = new Sidequest::Quest("Sub 1", main);
+	auto* sub2 = new Sidequest::Quest("Sub 2", main);
+
+	main->addSubquest(sub1);
+	main->addSubquest(sub2);
+
+	EXPECT_EQ(main->findSubquest(sub1->getId())->getCaption(), "Sub 1");
+	EXPECT_EQ(main->findSubquest(sub2->getId())->getCaption(), "Sub 2");
+
+	main->removeSubquest(sub1->getId());
+	EXPECT_EQ(main->findSubquest(sub1->getId()), nullptr);
+	EXPECT_NE(main->findSubquest(sub2->getId()), nullptr);
+
+	delete main;
 }
