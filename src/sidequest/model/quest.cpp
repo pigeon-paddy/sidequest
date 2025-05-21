@@ -3,22 +3,23 @@
 
 namespace Sidequest
 {
-	Quest::Id Quest::global_id_counter = 0;
+	Quest::Id Quest::global_id_counter = 1;
 
-	Quest::Quest(std::string caption, Quest* parent)
-	{
-		this->id = ++global_id_counter;
-		this->caption = caption;
-		this->parent = parent;
-		this->status = Status::OPEN;
-		this->subquests = std::vector<Quest*>();
+	Quest::Quest(std::string caption, Quest* parent) : 		
+		id(global_id_counter), caption(caption), parent(parent), status(Status::initial), subquests(std::vector<Quest*>()) {
+
+		++global_id_counter;
 	}
 
+	Quest::Quest(std::string caption)
+	{
+		Quest(caption, nullptr);
+	}
 
 	Quest::~Quest()
 	{
 		for (Quest* subquest : subquests) {
-			delete subquest;
+			delete (subquest);
 		}
 	}
 
@@ -30,7 +31,7 @@ namespace Sidequest
 		subquests.erase(std::remove_if(subquests.begin(), subquests.end(),
 			[id](Quest* q) {
 				if (q->getId() == id) {
-					delete q;
+					delete (q);
 					return true;
 				}
 				return false;

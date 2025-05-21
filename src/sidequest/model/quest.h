@@ -5,10 +5,13 @@
 
 namespace Sidequest
 {
+	class User;
+
+
 	enum class Status {
-		OPEN,
-		CLOSED,
-		FINALIZED
+		initial,
+		done,
+		inactive
 	};
 
 	class Quest {

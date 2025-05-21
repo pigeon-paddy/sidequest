@@ -49,7 +49,7 @@ namespace Sidequest
 		{
 			auto database = new Database("sidequest.db");
 			database->execute("DROP TABLE user;");
-			delete database;
+			delete (database);
 		}
 
 		void ServerUser::reset_user_table()
