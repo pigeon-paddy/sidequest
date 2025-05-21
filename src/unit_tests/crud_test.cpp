@@ -2,7 +2,7 @@
 #include "model/server_user.h"
 #include "storage/database.h"
 #include <gtest/gtest.h>
-#include <storage/Query.h>
+#include "storage/Query.h"
 
 
 
@@ -144,10 +144,10 @@ TEST_F(CRUDTests, QUEST_CREATE)
 	auto quest = new Sidequest::Quest("My First Quest", nullptr);
 
 	EXPECT_EQ(quest->getCaption(), "My First Quest");
-	EXPECT_EQ(quest->getStatus(), Sidequest::Status::OPEN);
+	EXPECT_EQ(quest->getStatus(), Sidequest::Status::initial);
 	EXPECT_EQ(quest->findSubquest(9999), nullptr); 
 
-	delete quest;
+	delete (quest);
 }
 
 TEST_F(CRUDTests, QUEST_ADD_SUBQUEST)
@@ -160,7 +160,7 @@ TEST_F(CRUDTests, QUEST_ADD_SUBQUEST)
 	auto found = parent->findSubquest(sub->getId());
 	ASSERT_NE(found, nullptr);
 	EXPECT_EQ(found->getCaption(), "Child");
-	EXPECT_EQ(found->getStatus(), Sidequest::Status::OPEN);
+	EXPECT_EQ(found->getStatus(), Sidequest::Status::initial);
 
 	delete parent;  // löscht rekursiv auch sub
 }
@@ -182,11 +182,11 @@ TEST_F(CRUDTests, QUEST_REMOVE_SUBQUEST)
 TEST_F(CRUDTests, QUEST_UPDATE_STATUS)
 {
 	auto* quest = new Sidequest::Quest("Status Test", nullptr);
-	quest->updateStatus(Sidequest::Status::FINALIZED);
+	quest->updateStatus(Sidequest::Status::inactive);
 
-	EXPECT_EQ(quest->getStatus(), Sidequest::Status::FINALIZED);
+	EXPECT_EQ(quest->getStatus(), Sidequest::Status::inactive);
 
-	delete quest;
+	delete (quest);
 }
 
 TEST_F(CRUDTests, QUEST_MULTIPLE_SUBQUESTS)
