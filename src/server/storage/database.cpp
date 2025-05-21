@@ -115,6 +115,11 @@ namespace Sidequest
 			return result;
 		}
 
+		sqlite3* Database::get_handle() const {
+			return handle;
+		}
+
+
 		void Database::open(std::string url)
 		{
 			int return_code = sqlite3_open(url.c_str(), &handle);

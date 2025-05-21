@@ -70,6 +70,8 @@ namespace Sidequest
 			int read_int_value(PreparedStatement* prepared_statement, std::string column_name);
 			std::string read_text_value(PreparedStatement* prepared_statement, std::string column_name);
 
+			sqlite3* get_handle() const;
+
 			StatementCache* statement_cache;
 			ColumnCache* column_cache;
 

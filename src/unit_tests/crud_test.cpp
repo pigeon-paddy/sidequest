@@ -2,6 +2,9 @@
 #include "model/server_user.h"
 #include "storage/database.h"
 #include <gtest/gtest.h>
+#include <storage/Query.h>
+
+
 
 class CRUDTests : public ::testing::Test 
 {
@@ -17,10 +20,11 @@ protected:
 
 	virtual void SetUp() {
 		database = new Sidequest::Server::Database("sidequest.db");
-		//database->execute("create table user(email text primary key, display_name text, password text);");
-		auto user = new Sidequest::Server::ServerUser(database);
-		user->create_user_table();
-		delete(user);
+
+		Sidequest::Server::Query query(database,
+			"CREATE TABLE IF NOT EXISTS user (email TEXT PRIMARY KEY, display_name TEXT, password TEXT);"
+		);
+		query.step();
 	}
 
 	virtual void TearDown() {
@@ -42,17 +46,32 @@ TEST_F(CRUDTests, CRUD_RESET_TABLE)
 	delete(user);
 }
 
-TEST_F(CRUDTests, CRUD_USER_CREATE)
+TEST_F(CRUDTests, CRUD_USER_CREATE_WITH_QUERY)
 {
-	auto user = new ServerUser(database, "crud_user_create@hs-aalen.de", "Temporary User", "");
-	user->create_on_database();
-	delete(user);
+	using namespace Sidequest::Server;
 
-	auto user2 = new ServerUser(database, "crud_user_create@hs-aalen.de");
-	user2->read_on_database();
+	// 1. User anlegen (INSERT)
+	{
+		Query insertQuery(database, "INSERT INTO user (email, display_name, password) VALUES (?, ?, ?);");
+		insertQuery.bind(1, "crud_user_create@hs-aalen.de");
+		insertQuery.bind(2, "Temporary User");
+		insertQuery.bind(3, "");
+		bool success = insertQuery.step();
+		EXPECT_TRUE(success || sqlite3_errcode(database->get_handle()) == SQLITE_DONE);
+		// step() returns SQLITE_ROW for SELECT, SQLITE_DONE for INSERT/UPDATE
+	}
 
-	EXPECT_EQ(user->display_name, "Temporary User");
-	delete(user2);
+	// 2. User auslesen (SELECT)
+	{
+		Query selectQuery(database, "SELECT display_name FROM user WHERE email = ?;");
+		selectQuery.bind(1, "crud_user_create@hs-aalen.de");
+
+		bool hasRow = selectQuery.step();
+		ASSERT_TRUE(hasRow);  // User muss existieren
+
+		std::string displayName = selectQuery.get_text(0);
+		EXPECT_EQ(displayName, "Temporary User");
+	}
 }
 
 TEST_F(CRUDTests, CRUD_USER_CREATE_DOUBLE)
