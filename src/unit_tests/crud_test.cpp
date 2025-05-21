@@ -1,4 +1,4 @@
-#include "C:\Users\lehle\Source\Repos\sidequest\src\sidequest\model\quest.h"
+#include "model/quest.h"
 #include "model/server_user.h"
 #include "storage/database.h"
 #include <gtest/gtest.h>
