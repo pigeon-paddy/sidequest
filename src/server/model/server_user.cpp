@@ -2,18 +2,16 @@
 
 #include "storage/database.h"
 
+#include <iostream>
+
 namespace Sidequest 
 {
-	namespace Server {
-
-		ServerUser::ServerUser(Database* database)
+	namespace Server 
+	{
+	
+		ServerUser::ServerUser(Database* database, Id id)
 			: Persistable(database)
-		{
-		}		
-		
-		ServerUser::ServerUser(Database* database, std::string email)
-			: Persistable(database)
-			, User(email)
+			, User(id)
 		{
 		}
 
@@ -27,85 +25,54 @@ namespace Sidequest
 		{
 		}
 
-		void ServerUser::create_user_table() {
-			auto prepared_statement = database->prepare(
-				"CREATE TABLE user (email TEXT PRIMARY KEY, display_name TEXT, password TEXT);"
-			);
-
-			if (!prepared_statement) {
-				throw std::runtime_error("Failed to prepare statement for creating user table");
-			}
-
-			int result = database->execute(prepared_statement);
-			if (result != SQLITE_DONE) {
-				database->reset_statement(prepared_statement);
-				throw UnableToCreateObjectException("Failed to execute user table creation");
-			}
-
-			database->reset_statement(prepared_statement);
-		}
-
-		void ServerUser::clear_user_table()
-		{
-			auto database = new Database("sidequest.db");
-			database->execute("DROP TABLE user;");
-			delete (database);
-		}
-
-		void ServerUser::reset_user_table()
-		{
-			clear_user_table();
-			create_user_table();
-		}
-
 		void ServerUser::create_on_database()
 		{
-			auto prepared_statement = database->prepare( "INSERT INTO user(email, display_name, password) VALUES (?, ?, ?);" );
-			database->bind(prepared_statement, 1, email);
-			database->bind(prepared_statement, 2, display_name);
-			database->bind(prepared_statement, 3, password);
-			if ( database->execute(prepared_statement) != SQLITE_DONE )
+			auto query = Query(database, "INSERT INTO user(email, display_name, password) VALUES (?, ?, ?);" );
+			query.bind( 1, email );
+			query.bind( 2, display_name );
+			query.bind( 3, password );
+			query.next_row();
+			if (!query.is_done())
 				throw UnableToCreateObjectException(email);
-			database->reset_statement(prepared_statement);
+			id = query.last_insert_rowid();
 		}
 
 		void ServerUser::read_on_database()
 		{
-			auto prepared_statement = database->prepare("SELECT * FROM user WHERE email = ?;");
-			database->bind(prepared_statement, 1, email);
-			if ( database->execute(prepared_statement) != SQLITE_ROW )
+			auto query = Query(database, "SELECT * FROM user WHERE id = ?;");
+			query.bind( 1, id );
+			query.next_row();
+			if ( ! query.has_rows() )
 				throw UnableToReadObjectException(email);
-			display_name = database->read_text_value(prepared_statement, "display_name");
-			password     = database->read_text_value(prepared_statement, "password");
-			database->reset_statement(prepared_statement);
+			display_name = query.text_value("display_name");
+			password     = query.text_value("password");
 		}
 
 		void ServerUser::update_on_database()
 		{
-			auto prepared_statement = database->prepare("UPDATE user set display_name=?, password=? WHERE email=?;");
-			database->bind(prepared_statement, 1, display_name);
-			database->bind(prepared_statement, 2, password);
-			database->bind(prepared_statement, 3, email);
-			if ( database->execute(prepared_statement) != SQLITE_DONE )
+			auto query = Query(database, "UPDATE user set email=?, display_name=?, password=? WHERE id=?;");
+			query.bind( 1, email);
+			query.bind( 2, display_name);
+			query.bind( 3, password);
+			query.bind( 4, id);
+			query.next_row();
+			if (! query.is_done() )
 				throw UnableToUpdateObjectException(email);
-			database->reset_statement(prepared_statement);
 		}
 
 		void ServerUser::delete_on_database()
 		{
-			auto prepared_statement = database->prepare("DELETE FROM user WHERE email=?;");
-			database->bind(prepared_statement, 1, email);
-			if ( database->execute(prepared_statement) != SQLITE_DONE )
+			auto query = Query(database, "DELETE FROM user WHERE id=?;");
+			query.bind( 1, id );
+			query.next_row();
+			if (!query.is_done())
 				throw UnableToDeleteObjectException(email);
-			database->reset_statement(prepared_statement);
 		}
 
 		std::string ServerUser::class_id()
 		{
 			return "user";
 		}
-
-
 
 	}
 }

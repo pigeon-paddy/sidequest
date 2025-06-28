@@ -1,0 +1,21 @@
+# ninja log v6
+4	55	7728261026356960	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir	cd3e9b5951b51289
+4	55	7728261026356960	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir	cd3e9b5951b51289
+56	1611	7728261041906930	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download	ece8116bb14baca3
+56	1611	7728261041906930	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download	ece8116bb14baca3
+1611	1660	7728261042396936	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update	27a6624808e99c2c
+1611	1660	7728261042396936	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update	27a6624808e99c2c
+1660	1708	7728261042886932	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch	f9081d553b5338bd
+1660	1708	7728261042886932	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch	f9081d553b5338bd
+1708	1756	7728261043356963	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure	48ca4a26484c755d
+1708	1756	7728261043356963	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure	48ca4a26484c755d
+1756	1803	7728261043826960	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build	9cfa96958049c973
+1756	1803	7728261043826960	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build	9cfa96958049c973
+1803	1850	7728261044306962	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install	bc83a3939a3cb7f7
+1803	1850	7728261044306962	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install	bc83a3939a3cb7f7
+1850	1897	7728261044776923	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test	31f62431e6ecc41
+1850	1897	7728261044776923	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test	31f62431e6ecc41
+1898	1963	7728261045426959	CMakeFiles/googletest-populate-complete	234516ebb9b95135
+1898	1963	7728261045426959	googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-done	234516ebb9b95135
+1898	1963	7728261045426959	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete	234516ebb9b95135
+1898	1963	7728261045426959	C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-done	234516ebb9b95135

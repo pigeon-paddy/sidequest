@@ -6,6 +6,7 @@
 #include <sqlite3.h>
 
 #include "prepared_statement.h"
+#include "query.h"
 
 namespace Sidequest
 {
@@ -58,19 +59,7 @@ namespace Sidequest
 			Database( std::string filepath_of_database );
 			~Database();
 
-			PreparedStatement* prepare( std::string statement_sql );
-
-			void bind(PreparedStatement* prepared_statement, int parameter_index, std::string value);
-			void bind(PreparedStatement* prepared_statement, int parameter_index, unsigned int value);
-
-			int execute(PreparedStatement* prepared_statement);
-			int execute(std::string sql_statement);
-			void reset_statement(PreparedStatement* prepared_statement);
-
-			int read_int_value(PreparedStatement* prepared_statement, std::string column_name);
-			std::string read_text_value(PreparedStatement* prepared_statement, std::string column_name);
-
-			sqlite3* get_handle() const;
+			int execute_sql_statement(std::string sql_statement);
 
 			StatementCache* statement_cache;
 			ColumnCache* column_cache;
