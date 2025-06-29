@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 set(SIDEQUEST_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/sidequest")
 set(SIDEQUEST_SERVER_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/server")
+set(SIDEQUEST_CLIENT_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/client")
 set(SIDEQUEST_DEPENDENCIES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/dependencies")
 
 # ===============================
@@ -38,6 +39,7 @@ add_library(sidequest_lib STATIC ${LIBRARY_SOURCES} )
 # ===============================
 find_directories(SERVER_SOURCE_DIRS "src/server" "${FILE_TYPES}")
 generate_source_tree(SERVER_SOURCES "${SERVER_SOURCE_DIRS}" "${FILE_TYPES}")
+list(REMOVE_ITEM SERVER_SOURCES "src/server/main.cpp")
 add_library(server_lib ${SERVER_SOURCES} )
 
 add_dependencies(server_lib sidequest_lib)
@@ -54,6 +56,29 @@ target_link_libraries(server sqlite3)
 # set the application working directory
 include_directories(${SIDEQUEST_SERVER_INCLUDE_DIR})
 set_target_properties(server PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/application_root" )
+
+# ===============================
+# Component client_lib
+# ===============================
+find_directories(CLIENT_SOURCE_DIRS "src/client" "${FILE_TYPES}")
+generate_source_tree(CLIENT_SOURCES "${CLIENT_SOURCE_DIRS}" "${FILE_TYPES}")
+list(REMOVE_ITEM CLIENT_SOURCES "src/client/main.cpp")
+add_library(client_lib ${CLIENT_SOURCES} )
+
+add_dependencies(client_lib sidequest_lib)
+
+# ===============================
+# Component client executable
+# ===============================
+add_executable(client src/client/main.cpp)
+
+target_link_libraries(client sidequest_lib)  
+target_link_libraries(client client_lib)  
+target_link_libraries(client sqlite3)  
+
+# set the application working directory
+include_directories(${SIDEQUEST_CLIENT_INCLUDE_DIR})
+set_target_properties(client PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/application_root" )
 
 # ===============================
 # Setup Google Test
@@ -82,8 +107,13 @@ target_link_libraries(
   GTest::gtest_main
   sidequest_lib
   server_lib
+  client_lib
   sqlite3
 )
+
+add_dependencies(unit_tests sidequest_lib)
+add_dependencies(unit_tests server_lib)
+add_dependencies(unit_tests client_lib)
 
 include(GoogleTest)
 gtest_discover_tests(unit_tests)
@@ -105,3 +135,6 @@ if(MSVC)
 		"$<TARGET_FILE_DIR:server>"
 	)
 endif(MSVC)
+
+
+set_target_properties(unit_tests PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/application_root" )

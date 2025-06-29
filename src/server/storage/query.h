@@ -40,6 +40,7 @@ namespace Sidequest
 
 			bool has_rows();
 			bool is_done();
+			unsigned int changes();
 
 		protected:
 			void reset();
@@ -48,7 +49,8 @@ namespace Sidequest
 			Database* database;
 			PreparedStatement* prepared_statement;
 			int error_code;
+			unsigned int n_changes;
 		};
 
-	};
+	}
 }

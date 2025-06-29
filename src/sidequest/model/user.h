@@ -3,16 +3,18 @@
 #include <string>
 #include <vector>
 
+#include "id.h"
+
 namespace Sidequest
 {
 	class Quest;
 
 	class User {
 	public:
-		typedef unsigned long Id;
+		User();
 		User(Id id);
 		User(std::string email, std::string display_name, std::string password);
-		~User();
+		virtual ~User();
 
 		Id id;
 		std::string display_name;

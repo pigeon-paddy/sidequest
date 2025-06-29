@@ -9,15 +9,21 @@ namespace Sidequest
 	namespace Server 
 	{
 	
+		ServerUser::ServerUser(Database* database)
+			: Persistable(database)
+			, SerialisableUser()
+		{
+		}
+
 		ServerUser::ServerUser(Database* database, Id id)
 			: Persistable(database)
-			, User(id)
+			, SerialisableUser(id)
 		{
 		}
 
 		ServerUser::ServerUser(Database* database, std::string email, std::string display_name, std::string password)
 			: Persistable(database)
-			, User(email, display_name, password)
+			, SerialisableUser(email, display_name, password)
 		{
 		}
 
@@ -37,15 +43,15 @@ namespace Sidequest
 			id = query.last_insert_rowid();
 		}
 
-		void ServerUser::read_on_database()
+		void ServerUser::read_on_database(Id id)
 		{
 			auto query = Query(database, "SELECT * FROM user WHERE id = ?;");
 			query.bind( 1, id );
 			query.next_row();
 			if ( ! query.has_rows() )
 				throw UnableToReadObjectException(email);
-			display_name = query.text_value("display_name");
-			password     = query.text_value("password");
+			this->id = id;
+			read_from_query( query );
 		}
 
 		void ServerUser::update_on_database()
@@ -67,6 +73,15 @@ namespace Sidequest
 			query.next_row();
 			if (!query.is_done())
 				throw UnableToDeleteObjectException(email);
+			if (query.changes() != 1)
+				throw UnableToDeleteObjectException(email);
+		}
+
+		void ServerUser::read_from_query( Query& query )
+		{
+			display_name = query.text_value("display_name");
+			email = query.text_value("email");
+			password = query.text_value("password");
 		}
 
 		std::string ServerUser::class_id()

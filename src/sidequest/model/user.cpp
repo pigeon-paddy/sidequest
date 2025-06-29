@@ -1,10 +1,16 @@
 #include "user.h"
 
+#include <stdlib.h>
+
 namespace Sidequest 
 {
 
+	User::User()
+	{
+	}
+
 	User::User(Id id)
-		: id(id)
+		:id(id)
 	{
 	}
 
@@ -16,4 +22,5 @@ namespace Sidequest
 	User::~User()
 	{
 	}
+
 }
