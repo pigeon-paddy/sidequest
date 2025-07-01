@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-src/googlemock
+# Install script for directory: C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-src/googlemock
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,42 +33,42 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-src/googlemock/include/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-src/googlemock/include/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/lib/gmock.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/lib/gmock.lib")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/lib/gmock_main.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/lib/gmock_main.lib")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmockpdb_debug_postfix-NOTFOUND.pdb")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmockpdb_debug_postfix-NOTFOUND.pdb")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmock_mainpdb_debug_postfix-NOTFOUND.pdb")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE FILE OPTIONAL FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/bin/${CMAKE_INSTALL_CONFIG_NAME}/gmock_mainpdb_debug_postfix-NOTFOUND.pdb")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "gmock" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock_main.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-build/googletest/generated/gmock_main.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-build/googletest/cmake_install.cmake")
+  include("C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-build/googletest/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-build/googlemock/install_local_manifest.txt"
+  file(WRITE "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-build/googlemock/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

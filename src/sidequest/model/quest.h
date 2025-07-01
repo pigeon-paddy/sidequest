@@ -26,9 +26,6 @@ namespace Sidequest
 		static std::string status_to_string( Status status );
 		static Status Quest::string_to_status(std::string status);
 
-		static std::string status_to_string( Status status );
-		static Status Quest::string_to_status(std::string status);
-
 		Id id;
 		std::string title = "";
 		std::string description = "";

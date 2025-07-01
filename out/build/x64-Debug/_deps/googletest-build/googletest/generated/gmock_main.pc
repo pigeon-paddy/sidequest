@@ -1,5 +1,5 @@
-libdir=C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/install/x64-Debug/lib
-includedir=C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/install/x64-Debug/include
+libdir=C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/install/x64-Debug/lib
+includedir=C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/install/x64-Debug/include
 
 Name: gmock_main
 Description: GoogleMock (with main() function)

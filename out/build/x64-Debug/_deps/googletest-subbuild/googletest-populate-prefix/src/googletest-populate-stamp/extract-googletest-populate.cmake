@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-1.17.0.tar.gz" ABSOLUTE)
-get_filename_component(directory "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-1.17.0.tar.gz" ABSOLUTE)
+get_filename_component(directory "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-src" ABSOLUTE)
 
 message(VERBOSE "extracting...
      src='${filename}'

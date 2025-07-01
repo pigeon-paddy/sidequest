@@ -1,5 +1,5 @@
-if(EXISTS "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/unit_tests[1]_tests.cmake")
-  include("C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/unit_tests[1]_tests.cmake")
+if(EXISTS "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/unit_tests[1]_tests.cmake")
+  include("C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/unit_tests[1]_tests.cmake")
 else()
   add_test(unit_tests_NOT_BUILT unit_tests_NOT_BUILT)
 endif()

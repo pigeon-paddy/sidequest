@@ -20,8 +20,8 @@ project(googletest-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(googletest-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "TRUE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz"
-                    SOURCE_DIR          "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-src"
-                    BINARY_DIR          "C:/Users/Pxxdy/Downloads/sidequest-refactor-query/sidequest-refactor-query/out/build/x64-Debug/_deps/googletest-build"
+                    SOURCE_DIR          "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-src"
+                    BINARY_DIR          "C:/Users/patau/source/repos/pigeon-paddy/sidequest/out/build/x64-Debug/_deps/googletest-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

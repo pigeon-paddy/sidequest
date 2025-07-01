@@ -20,21 +20,6 @@ namespace Sidequest
 		, editor(editor)
 		, parent(parent)
 	{
-	}
-
-	Quest::Quest(Id id)
-		: id(id)
-	{
-	}
-
-	Quest::Quest(Status status, std::string title, std::string description, User* owner, User* editor, Quest* parent)
-		: status(status)
-		, title(title)
-		, description(description)
-		, owner(owner)
-		, editor(editor)
-		, parent(parent)
-	{
 		if (owner != nullptr)
 			owner_id = owner->id;
 		if (editor != nullptr)
